@@ -1,0 +1,363 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Responsive Photo Gallery</title>
+    <link rel="stylesheet" href="fog.css" />
+    <script
+      src="https://kit.fontawesome.com/a076d05399.js"
+      crossorigin="anonymous"
+    ></script>
+    <style>
+      body {
+        margin: auto;
+      }
+      /* CSS for the gallery container */
+      .gallery {
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: center;
+        margin-top: 50px;
+        margin-bottom: 50px;
+      }
+
+      /* CSS for each individual photo */
+      .photo {
+        width: 30%;
+        padding: 10px;
+      }
+
+      .photo:hover {
+        cursor: pointer;
+      }
+
+      /* CSS to make the photos responsive */
+      @media (max-width: 768px) {
+        .photo {
+          width: 40%;
+        }
+      }
+      @media (max-width: 576px) {
+        .photo {
+          width: 60%;
+        }
+      }
+
+      /* #modal {
+        position: fixed;
+        z-index: 1;
+        left: 0;
+        top: 0;
+        width: 100%;
+        height: 100%;
+        overflow: auto;
+        background-color: rgba(0, 0, 0, 0.5);
+      } */
+      #modal {
+        position: fixed;
+        z-index: 1000;
+        left: 0;
+        top: 0;
+        width: 100%;
+        height: 100%;
+        overflow: auto;
+        background-color: rgba(0, 0, 0, 0.5);
+        display: flex;
+        justify-content: center;
+        align-items: center;
+      }
+
+      #prev-btn,
+      #next-btn {
+        position: absolute;
+        top: 50%;
+        font-size: 3em;
+        padding: 20px;
+        background-color: transparent;
+        border: none;
+        cursor: pointer;
+        color: #fefefe;
+      }
+
+      #prev-btn:hover,
+      #next-btn:hover {
+        /* add your hover effect */
+        /* background-color: rgba(255, 255, 255, 0.2); */
+        color: #578bcb;
+      }
+
+      #prev-btn {
+        left: 0;
+      }
+      #next-btn {
+        right: 0;
+      }
+
+      .modal-content {
+        background-color: black;
+        /* margin: 15% auto; */
+        padding: 20px;
+        width: 80%;
+        box-shadow: 0 5px 8px 0 rgba(0, 0, 0, 0.2),
+          0 7px 20px 0 rgba(0, 0, 0, 0.17);
+        overflow: hidden;
+        max-height: 100vh;
+        border-radius: 31px;
+        text-align: center;
+      }
+
+      .close-btn-wrapper {
+        width: 100%;
+        display: inline-block;
+        text-align: right;
+        margin-bottom: 5px;
+      }
+
+      #close-btn {
+        color: #aaa;
+        float: right;
+        font-size: 28px;
+        font-weight: bold;
+      }
+
+      #close-btn:hover,
+      #close-btn:focus {
+        /* color: black; */
+        color: #578bcb;
+        text-decoration: none;
+        cursor: pointer;
+      }
+
+      #modal img {
+        max-width: 100%;
+      }
+
+      /* Add CSS for the header container */
+      .header {
+        width: 100%;
+        height: 100vh; /* 100% of the viewport height */
+        background-image: url("header-bg.jpg");
+        background-size: cover; /* Scale the background image to cover the entire container */
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        text-align: center;
+      }
+
+      /* Add CSS for the title and subtitle */
+      .header h1 {
+        font-size: 3em;
+        margin: 0;
+        color: #fff; /* White text color */
+        text-shadow: 1px 1px #000; /* Add a black text shadow for visibility */
+        width: 100%;
+      }
+      .header h2 {
+        font-size: 1.5em;
+        margin: 0;
+        color: #fff; /* White text color */
+        text-shadow: 1px 1px #000; /* Add a black text shadow for visibility */
+        width: 100%;
+      }
+
+      #view-gallery-btn {
+        z-index: 1000;
+        position: absolute;
+        bottom: 50px;
+      }
+
+      .arrowDown {
+        color: white;
+        font-size: 40px;
+      }
+
+      .arrowDown:hover {
+        color: #578bcb;
+      }
+
+      @keyframes slideInFromLeft {
+        0% {
+          transform: translateX(-100%);
+        }
+        100% {
+          transform: translateX(0);
+        }
+      }
+
+      .slideInFromLeftClass {
+        animation: 1s ease-out 0s 1 slideInFromLeft;
+      }
+
+      @keyframes slideInFromTop {
+        0% {
+          transform: translateY(-100%);
+        }
+        100% {
+          transform: translateY(0);
+        }
+      }
+
+      .slideInFromTopClass {
+        animation: 1s ease-out 0s 1 slideInFromTop;
+      }
+
+      /* .header::before {
+        content: "";
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background-image: url("fog.png");
+        background-size: cover;
+
+        background-repeat: repeat-x;
+        animation: fog 10s linear infinite;
+        animation-iteration-count: infinite;
+        animation-fill-mode: both;
+      } */
+
+      /* @keyframes fog {
+        0% {
+          transform: translateX(-100%);
+        }
+        100% {
+          transform: translateX(0);
+        }
+      } */
+    </style>
+  </head>
+  <body>
+    <div class="header">
+      <h1 class="slideInFromTopClass">Welcome to our</h1>
+      <h2 class="slideInFromLeftClass">photo gallery</h2>
+      <div id="foglayer_01" class="fog">
+        <div class="image01"></div>
+        <div class="image02"></div>
+      </div>
+      <div id="foglayer_02" class="fog">
+        <div class="image01"></div>
+        <div class="image02"></div>
+      </div>
+      <div id="foglayer_03" class="fog">
+        <div class="image01"></div>
+        <div class="image02"></div>
+      </div>
+
+      <a id="view-gallery-btn" onclick="scrollToGallery()">
+        <i class="fas fa-arrow-circle-down arrowDown"></i
+      ></a>
+    </div>
+    <div class="gallery">
+      <img class="photo" src="photo1.jpg" alt="Photo 1" />
+      <img class="photo" src="photo2.jpg" alt="Photo 2" />
+      <img class="photo" src="photo3.jpg" alt="Photo 3" />
+      <img class="photo" src="photo4.jpg" alt="Photo 4" />
+    </div>
+
+    <!-- <script>
+      // JavaScript to add a modal effect when a photo is clicked
+      const photos = document.querySelectorAll(".photo");
+      let modal;
+
+      photos.forEach((photo) => {
+        photo.addEventListener("click", (e) => {
+          console.log("zaznam klik");
+          if (modal) {
+            // document.body.removeChild(modal);
+          }
+          modal = document.createElement("div");
+          modal.id = "modal";
+          modal.innerHTML = `
+        <div class="modal-content">
+          <span id="close-btn">&times;</span>
+          <img src="${e.target.src}" alt="${e.target.alt}">
+          <p>${e.target.alt}</p>
+        </div>
+      `;
+          document.body.appendChild(modal);
+
+          // Add an event listener to the close button
+          document.querySelector("#close-btn").addEventListener("click", () => {
+            document.body.removeChild(modal);
+          });
+
+          if (modal) {
+            console.log("Sem naso modal");
+            modal.addEventListener("click", (e) => {
+              console.log("poslusam");
+              if (e.target.id == "modal") {
+                console.log("ni klik na modal");
+                document.body.removeChild(modal);
+              }
+            });
+          }
+        });
+      });
+    </script> -->
+    <script>
+      const photos = document.querySelectorAll(".photo");
+      let modal;
+      let currentIndex;
+
+      photos.forEach((photo, index) => {
+        photo.addEventListener("click", (e) => {
+          currentIndex = index;
+          if (modal) {
+            document.body.removeChild(modal);
+          }
+          modal = document.createElement("div");
+          modal.id = "modal";
+          modal.innerHTML = `
+                <div class="modal-content">
+                  <div class="close-btn-wrapper">
+                    <span id="close-btn"><i class='fas fa-times'></i></span>
+                  </div>
+                  <button id="prev-btn"> <i class='fas fa-angle-left'></i> </button>
+                  <img id="modal-img" src="${e.target.src}" alt="${e.target.alt}">
+                  <button id="next-btn"> <i class='fas fa-angle-right'></i> </button>
+                  <p>${e.target.alt}</p>
+                </div>
+              `;
+          document.body.appendChild(modal);
+
+          document.querySelector("#close-btn").addEventListener("click", () => {
+            document.body.removeChild(modal);
+            modal = null;
+          });
+
+          document.querySelector("#prev-btn").addEventListener("click", () => {
+            currentIndex = (currentIndex - 1 + photos.length) % photos.length;
+            let prevImg = photos[currentIndex];
+            document.querySelector("#modal-img").src = prevImg.src;
+            document.querySelector("#modal-img").alt = prevImg.alt;
+          });
+          document.querySelector("#next-btn").addEventListener("click", () => {
+            currentIndex = (currentIndex + 1) % photos.length;
+            let nextImg = photos[currentIndex];
+            document.querySelector("#modal-img").src = nextImg.src;
+            document.querySelector("#modal-img").alt = nextImg.alt;
+          });
+
+          if (modal) {
+            console.log("Sem naso modal");
+            modal.addEventListener("click", (e) => {
+              console.log("poslusam");
+              if (e.target.id == "modal") {
+                console.log("ni klik na modal");
+                document.body.removeChild(modal);
+                modal = null;
+              }
+            });
+          }
+        });
+      });
+
+      function scrollToGallery() {
+        console.log("CLICK");
+        var gallery = document.querySelector(".gallery");
+        gallery.scrollIntoView({ behavior: "smooth" });
+      }
+    </script>
+  </body>
+</html>
