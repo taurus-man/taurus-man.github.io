@@ -7,10 +7,32 @@
       src="https://kit.fontawesome.com/e47a4f730c.js"
       crossorigin="anonymous"
     ></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Lobster&display=swap"
+      rel="stylesheet"
+    />
     <style>
       body {
         margin: auto;
       }
+
+      .name {
+        font-family: "Lobster", cursive;
+      }
+
+      .headerTitleWrapper {
+        padding: 20px;
+        background-color: rgba(0, 0, 0, 0.7);
+        border-radius: 20px;
+        z-index: 100000000;
+      }
+
+      .headerTitleWrapper:hover {
+        background-color: rgba(0, 0, 0, 1);
+      }
+
       /* CSS for the gallery container */
       .gallery {
         display: flex;
@@ -24,16 +46,25 @@
       .photo {
         width: 30%;
         padding: 10px;
+        border-radius: 20px;
       }
 
       .photo:hover {
         cursor: pointer;
+        background: white;
+        -moz-box-shadow: 0 0 5px #fff;
+        -webkit-box-shadow: 0 0 5px #fff;
+        box-shadow: 0px 0px 15px #fff;
       }
 
       /* CSS to make the photos responsive */
       @media (max-width: 768px) {
         .photo {
           width: 40%;
+        }
+
+        .image02 {
+          display: none;
         }
       }
       @media (max-width: 576px) {
@@ -93,16 +124,20 @@
       }
 
       .modal-content {
-        background-color: black;
+        /* background-color: black; */
         /* margin: 15% auto; */
         padding: 20px;
         width: 80%;
+        /* max-height: 80%; */
+        max-height: 800px;
         box-shadow: 0 5px 8px 0 rgba(0, 0, 0, 0.2),
           0 7px 20px 0 rgba(0, 0, 0, 0.17);
         overflow: hidden;
-        max-height: 100vh;
+        /* max-height: 100vh; */
         border-radius: 31px;
         text-align: center;
+        /* background-color: rgba(255, 255, 255, 0.5); */
+        background-color: rgba(0, 0, 0, 0.7);
       }
 
       .close-btn-wrapper {
@@ -123,19 +158,27 @@
       #close-btn:focus {
         /* color: black; */
         color: #578bcb;
+        background: transparent;
+        background-color: transparent;
         text-decoration: none;
         cursor: pointer;
       }
 
       #modal img {
         max-width: 100%;
+        max-height: 720px;
+        margin-bottom: 38px;
       }
 
       /* Add CSS for the header container */
       .header {
         width: 100%;
         height: 100vh; /* 100% of the viewport height */
-        background-image: url("header-bg.jpg");
+        /* background-image: url("images/header-bg.jpg"); */
+        /* background-image: url("images/backg.png"); */
+        /* background-image: url("images/up1.jpg"); */
+        background-image: url("images/up2.jpg");
+        background-position: center;
         background-size: cover; /* Scale the background image to cover the entire container */
         display: flex;
         flex-direction: column;
@@ -173,6 +216,10 @@
 
       .arrowDown:hover {
         color: #578bcb;
+        border-radius: 90px;
+        -moz-box-shadow: 0 0 5px #fff;
+        -webkit-box-shadow: 0 0 5px #fff;
+        box-shadow: 0px 0px 20px #fff;
       }
 
       @keyframes slideInFromLeft {
@@ -201,6 +248,20 @@
         animation: 1s ease-out 0s 1 slideInFromTop;
       }
 
+      /* Define the footer container */
+      .footer {
+        position: relative;
+        left: 0;
+        bottom: 0;
+        width: 100%;
+        background-color: #0e0d0d;
+        height: 60px;
+        margin-top: 70px;
+        display: flex;
+        justify-content: center;
+        color: #aaa;
+      }
+
       /* .header::before {
         content: "";
         position: absolute;
@@ -225,12 +286,33 @@
           transform: translateX(0);
         }
       } */
+
+      /* Define the initial styles for the div */
+      .transform-text {
+        font-size: 22px;
+        transition: all 3s ease-in-out;
+      }
+
+      /* Define the transformed styles for the div */
+      .transform-text.active {
+        font-size: 22px;
+        /* transform: rotate(360deg); */
+        text-shadow: 2px 2px 2px #000;
+        color: white;
+        width: 92%;
+        margin-left: auto;
+        margin-right: auto;
+      }
     </style>
   </head>
   <body>
     <div class="header">
-      <h1 class="slideInFromTopClass">Welcome to our</h1>
-      <h2 class="slideInFromLeftClass">photo gallery</h2>
+      <div class="headerTitleWrapper">
+        <h1 class="slideInFromTopClass">
+          Welcome to <span class="name">TAURUS-MAN</span> arts
+        </h1>
+        <h2 class="slideInFromLeftClass">photo gallery</h2>
+      </div>
       <div id="foglayer_01" class="fog">
         <div class="image01"></div>
         <div class="image02"></div>
@@ -248,53 +330,48 @@
         <i class="fas fa-arrow-circle-down arrowDown"></i
       ></a>
     </div>
-    <div class="gallery">
-      <img class="photo" src="photo1.jpg" alt="Photo 1" />
-      <img class="photo" src="photo2.jpg" alt="Photo 2" />
-      <img class="photo" src="photo3.jpg" alt="Photo 3" />
-      <img class="photo" src="photo4.jpg" alt="Photo 4" />
+    <div class="transform-text">
+      <h2 class="name">About me</h2>
+      <p>
+        Welcome to my gallery, where digital art, photography, and a love for
+        animals, nature, and space collide! I am a creative soul who is
+        passionate about capturing the beauty of the world around us through my
+        lens and digital brushstrokes. My art is a reflection of my love for the
+        natural world, the mysteries of space, and of course, my beloved animal
+        companions.
+      </p>
     </div>
 
-    <!-- <script>
-      // JavaScript to add a modal effect when a photo is clicked
-      const photos = document.querySelectorAll(".photo");
-      let modal;
+    <div class="gallery">
+      <!-- <img class="photo" src="images/photo1.jpg" alt="Photo 1" />
+      <img class="photo" src="images/photo2.jpg" alt="Photo 2" />
+      <img class="photo" src="images/photo3.jpg" alt="Photo 3" />
+      <img class="photo" src="images/photo4.jpg" alt="Photo 4" /> -->
+      <img class="photo" src="images/cat1.png" alt="Photo 1" />
+      <img class="photo" src="images/cat2.png" alt="Photo 2" />
+      <img class="photo" src="images/cat3.png" alt="Photo 3" />
+      <img class="photo" src="images/cat4.png" alt="Photo 4" />
+      <img class="photo" src="images/cat5.png" alt="Photo 1" />
+      <img class="photo" src="images/cat6.png" alt="Photo 2" />
+      <img class="photo" src="images/cat7.png" alt="Photo 3" />
+      <img class="photo" src="images/cat8.png" alt="Photo 4" />
+      <img class="photo" src="images/cat9.png" alt="Photo 1" />
+      <img class="photo" src="images/cat10.png" alt="Photo 2" />
+      <img class="photo" src="images/cat11.png" alt="Photo 3" />
+      <img class="photo" src="images/cat12.png" alt="Photo 4" />
+      <img class="photo" src="images/img12.png" alt="Photo 4" />
+      <img class="photo" src="images/img13.png" alt="Photo 4" />
+      <img class="photo" src="images/img14.png" alt="Photo 4" />
+      <img class="photo" src="images/img15.png" alt="Photo 4" />
+      <img class="photo" src="images/img16.png" alt="Photo 4" />
+      <img class="photo" src="images/img17.png" alt="Photo 4" />
+    </div>
 
-      photos.forEach((photo) => {
-        photo.addEventListener("click", (e) => {
-          console.log("zaznam klik");
-          if (modal) {
-            // document.body.removeChild(modal);
-          }
-          modal = document.createElement("div");
-          modal.id = "modal";
-          modal.innerHTML = `
-        <div class="modal-content">
-          <span id="close-btn">&times;</span>
-          <img src="${e.target.src}" alt="${e.target.alt}">
-          <p>${e.target.alt}</p>
-        </div>
-      `;
-          document.body.appendChild(modal);
+    <div class="footer">
+      <p>Copyright &#169; 2023 TAURUS-MAN</p>
+    </div>
 
-          // Add an event listener to the close button
-          document.querySelector("#close-btn").addEventListener("click", () => {
-            document.body.removeChild(modal);
-          });
-
-          if (modal) {
-            console.log("Sem naso modal");
-            modal.addEventListener("click", (e) => {
-              console.log("poslusam");
-              if (e.target.id == "modal") {
-                console.log("ni klik na modal");
-                document.body.removeChild(modal);
-              }
-            });
-          }
-        });
-      });
-    </script> -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.1/jquery.min.js"></script>
     <script>
       const photos = document.querySelectorAll(".photo");
       let modal;
@@ -308,6 +385,17 @@
           }
           modal = document.createElement("div");
           modal.id = "modal";
+          //   modal.innerHTML = `
+          //         <div class="modal-content">
+          //           <div class="close-btn-wrapper">
+          //             <span id="close-btn"><i class='fas fa-times'></i></span>
+          //           </div>
+          //           <button id="prev-btn"> <i class='fas fa-angle-left'></i> </button>
+          //           <img id="modal-img" src="${e.target.src}" alt="${e.target.alt}">
+          //           <button id="next-btn"> <i class='fas fa-angle-right'></i> </button>
+          //           <p>${e.target.alt}</p>
+          //         </div>
+          //       `;
           modal.innerHTML = `
                 <div class="modal-content">
                   <div class="close-btn-wrapper">
@@ -316,7 +404,6 @@
                   <button id="prev-btn"> <i class='fas fa-angle-left'></i> </button>
                   <img id="modal-img" src="${e.target.src}" alt="${e.target.alt}">
                   <button id="next-btn"> <i class='fas fa-angle-right'></i> </button>
-                  <p>${e.target.alt}</p>
                 </div>
               `;
           document.body.appendChild(modal);
@@ -354,10 +441,22 @@
       });
 
       function scrollToGallery() {
-        console.log("CLICK");
-        var gallery = document.querySelector(".gallery");
+        var gallery = document.querySelector(".transform-text");
         gallery.scrollIntoView({ behavior: "smooth" });
       }
+
+      // jQuery function to check if the div is in view
+      $(window).on("scroll", function () {
+        var divTop = $(".transform-text").offset().top;
+        var divBottom = divTop + $(".transform-text").outerHeight();
+        var viewportTop = $(window).scrollTop();
+        var viewportBottom = viewportTop + $(window).height();
+
+        if (divBottom > viewportTop && divTop < viewportBottom) {
+          // The div is in view, add the "active" class to apply the transformed styles
+          $(".transform-text").addClass("active");
+        }
+      });
     </script>
   </body>
 </html>
